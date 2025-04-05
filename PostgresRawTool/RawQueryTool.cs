@@ -14,8 +14,6 @@ public static class RawQueryTool
     {
         await using var dataSource = NpgsqlDataSource.Create(ConnectionString);
 
-        var connection = await dataSource.OpenConnectionAsync();
-
         await using var command = dataSource.CreateCommand(query);
         await using var reader = await command.ExecuteReaderAsync();
 
@@ -27,6 +25,7 @@ public static class RawQueryTool
                 result.Add(reader.GetValue(i));
             }
         }
+        
         return result;
     }
 }
